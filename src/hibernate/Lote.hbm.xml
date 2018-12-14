@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>    
+  <class name="entidades.Lote" table="lote">
+  
+    <!-- atributo identificador -->
+    <id name="idLote">
+        <generator class="increment"/>
+    </id>
+  
+    <!-- atributos miembro -->
+    <property name="nroLote"/>  
+    <property name="superficie"/>
+  
+    <!-- atributos referenciales -->
+    <many-to-one name="tipoSuelo" column="idTipoSuelo" class="entidades.TipoSuelo" lazy="false"/>
+    <many-to-one name="campo" column="idCampo" class="entidades.Campo" lazy="false" insert="false" update="false"/>
+    
+  </class>
+</hibernate-mapping>

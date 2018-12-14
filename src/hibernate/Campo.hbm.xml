@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="entidades.Campo" table="campo">
+  
+    <!-- atributo identificador -->
+    <id name="idCampo">
+        <generator class="increment"/>
+    </id>
+  
+    <!-- atributos miembro -->
+    <property name="nombre"/>  
+    <property name="superficie"/>
+  
+    <!-- atributos referenciales -->
+    <many-to-one name="estadoCampo" column="idEstadoCampo" class="entidades.EstadoCampo" />
+    <bag name="lotes" cascade="all,delete-orphan" lazy="false">
+        <key column="idCampo" not-null="true"/>
+        <one-to-many class="entidades.Lote"/>
+    </bag>
+    
+  </class>
+</hibernate-mapping>

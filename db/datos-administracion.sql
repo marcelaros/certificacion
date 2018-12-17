@@ -89,7 +89,7 @@ CREATE TABLE `campo` (
   PRIMARY KEY (`idCampo`),
   KEY `fk_campos_tipoCampo_idx` (`idEstadoCampo`),
   CONSTRAINT `fk_campos_tipoCampo` FOREIGN KEY (`idEstadoCampo`) REFERENCES `estadocampo` (`idEstadoCampo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `campo` (
 
 LOCK TABLES `campo` WRITE;
 /*!40000 ALTER TABLE `campo` DISABLE KEYS */;
-INSERT INTO `campo` VALUES (1,'mi campo',100,1);
+INSERT INTO `campo` VALUES (1,'LA ARBOLEDA',100,1),(2,'DON PEPE',300,1),(3,'MIRAFLORES',1200,1),(4,'POTRO BRAGADO',750,1),(5,'ATALAYA',500,1);
 /*!40000 ALTER TABLE `campo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +271,7 @@ CREATE TABLE `lote` (
   KEY `fk_lote_campo1_idx` (`idCampo`),
   CONSTRAINT `fk_lote_tipoSuelo1` FOREIGN KEY (`idTipoSuelo`) REFERENCES `tiposuelo` (`idTipoSuelo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lote_campo1` FOREIGN KEY (`idCampo`) REFERENCES `campo` (`idCampo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +280,7 @@ CREATE TABLE `lote` (
 
 LOCK TABLES `lote` WRITE;
 /*!40000 ALTER TABLE `lote` DISABLE KEYS */;
-INSERT INTO `lote` VALUES (1,'1',70,1,1),(2,'2',30,2,1);
+INSERT INTO `lote` VALUES (1,'1',70,1,1),(2,'2',30,2,1),(3,'1',150,1,2),(4,'2',150,3,2),(5,'1',500,1,3),(6,'2',250,4,3),(7,'3',150,5,3),(8,'4',300,5,3),(9,'1',500,1,4),(10,'2',100,1,4),(11,'3',150,1,4),(12,'1',500,1,5);
 /*!40000 ALTER TABLE `lote` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,4 +297,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-14 12:20:19
+-- Dump completed on 2018-12-17  9:47:42

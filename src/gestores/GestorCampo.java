@@ -69,13 +69,12 @@ public class GestorCampo {
         this.tiposSuelo = dao.leerTodos();
     }
     
-    //******** Este méodo siempre retorna True ????
-    public boolean validarNombre (String nombre) {
+    public boolean existeNombre (String nombre) {
         // Crear objeto DAO para interface con base de datos
         CampoDaoHib dao = new CampoDaoHib(this.sessionFactory);
     
         // Verificar si ya se cargó un campo con este nombre
-        return dao.campoDeNombre(nombre) != null;
+        return dao.existeNombre(nombre);
     }
     
     public void setNombreCampo(String nombre) {
@@ -123,11 +122,18 @@ public class GestorCampo {
         // Definir estado "CREADO"
         campo.setEstadoCampo(this.estadoCreado());
         
+        // Pasar nombre a mayúsculas
+        campo.setNombre(campo.getNombre().toUpperCase());
+        
         // Crear objeto DAO para interface con base de datos
         CampoDaoHib dao = new CampoDaoHib(this.sessionFactory);    
         
         // Guardar campo y lotes (se guardadn porque definí lazy="false")
         dao.guardarCampo(campo);
+    }
+    
+    public void campoNuevo() {
+        campo = new Campo();
     }
     
     public void run() {
@@ -139,4 +145,9 @@ public class GestorCampo {
         registra.setVisible(true);
                 
     }
+    
+    public void cerrarSesion() {
+        this.sessionFactory.close();
+    }
+
 }

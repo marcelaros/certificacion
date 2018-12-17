@@ -75,6 +75,11 @@ public class RegistrarCampo extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar campo");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lblNombre.setText("Nombre");
 
@@ -306,7 +311,7 @@ public class RegistrarCampo extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(175, 175, 175)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(83, 83, 83)
                 .addComponent(btnRegistrarCampo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -334,7 +339,7 @@ public class RegistrarCampo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        String nombre = txtNombre.getText();
+        String nombre = txtNombre.getText().toUpperCase();
         
         // Escribió nombre del campo?
         if (!nombre.equals("")) {   
@@ -342,8 +347,9 @@ public class RegistrarCampo extends javax.swing.JDialog {
             gestorCampo.setNombreCampo(nombre);
             
             // Si ya existe, mostrar error 
-            if (!gestorCampo.validarNombre(nombre)) {
+            if (gestorCampo.existeNombre(nombre)) {                
                 JOptionPane.showMessageDialog(this, "El nombre ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                txtNombre.requestFocus();
             }
         }
     }//GEN-LAST:event_txtNombreFocusLost
@@ -453,11 +459,16 @@ public class RegistrarCampo extends javax.swing.JDialog {
                     "Cant lotes: " + gestorCampo.getCampo().getLotes().size()+"\n"+
                     "Estado    : " + gestorCampo.getCampo().getEstadoCampo().getNombre(), "Nombre", INFORMATION_MESSAGE);
             
-        
-                // Limpiar pantalla para regitrar otro
+                // Limpiar pantalla para registrar otro
                 this.limpiarDatosCampo();
                 this.limpiarDatosLote();
                 this.vaciarTabla();
+                
+                // Crear un objeto campo nuevo
+                gestorCampo.campoNuevo();
+                
+                this.txtNombre.requestFocus();                
+                
             }
         }
     }//GEN-LAST:event_btnRegistrarCampoActionPerformed
@@ -515,6 +526,11 @@ public class RegistrarCampo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "La superficie del campo no es un valor correcto", "Error", JOptionPane.ERROR);            }
         }
     }//GEN-LAST:event_txtSupCampoFocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // Cerrar sesión hibernate
+        gestorCampo.cerrarSesion();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

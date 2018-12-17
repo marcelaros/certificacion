@@ -13,7 +13,7 @@ import entidades.Campo;
  */
 public interface CampoDao {
     
-    public Campo campoDeNombre(String nombre);
+    public boolean existeNombre(String nombre);
     
     public void guardarCampo(Campo campo);
     

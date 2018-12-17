@@ -25,7 +25,7 @@ public class CampoDaoHib implements CampoDao {
         this.sessionFactory = sessionFactory;
     }
     
-    public Campo campoDeNombre(String nombre) {
+    public boolean existeNombre(String nombre) {
         // Abrir una sesión de trabajo
         Session session = sessionFactory.openSession();
         
@@ -36,12 +36,13 @@ public class CampoDaoHib implements CampoDao {
         query.select(root);
         query.where(builder.equal(root.get("nombre"), nombre));
         Campo campo = session.createQuery(query).uniqueResult();
+        //List<Campo> lista = session.createQuery(query).list();
         
         // Cerrar sesión
         session.close();
         
         // Resultado
-        return campo;
+        return campo!=null;
     }
     
     public void guardarCampo(Campo campo) {
